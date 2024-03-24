@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+ 
+  header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    align-items: center;
+  }
+  
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  main {
+    padding: 20px;
+    min-height: 70vh;
+  }
+  ul{
+    margin: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .recipe-list {
+    margin-left: -30px;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .recipe-list li {
+    list-style: none;
+    background-color: #fff;
+    margin-top: 10px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0.1, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border-right: 10px solid #FF6347;
+    border-bottom: 1px solid #3f0eb1;
+  }
+ 
+
+  .recipe-list li:hover {
+    transform: scale(1.02);
+  }
+  
+  .recipe-list li h2 {
+    margin-bottom: 10px;
+    margin: 0;
+  }
+  
+  footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  footer ul {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+  }
+  
+  footer li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  footer a {
+    text-decoration: none;
+    color: black;
+  }
+
+  .add-recipe-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    height: 50px;
+    border-radius: 40%;
+    padding: 10px 20px;
+    background-color: #0b004b; /* Button background color */
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-recipe-btn:hover {
+    background-color: #FF4500; /* Change button color on hover */
+  }
+  
+  
+  /* Media Queries for responsiveness */
+  
+  @media only screen and (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    nav {
+      margin-top: 20px;
+    }
+  
+    .recipe-list {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  }
+  
+
+  

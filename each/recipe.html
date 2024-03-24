@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipe - Delicious Recipes</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="recipe.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <div style="display: flex; gap: 10px;">
+        <img src="/images/Recipe.jpeg" alt="Recipe">
+      </div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/about.html">About</a></li>
+        <li><a href="/contacts/contacts.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div id="loading-screen">
+    <p>Loading...</p>
+  </div>
+  <main style="min-height: 70vh;">
+    <div class="recipe" id="recipe-container" style="display: none;">
+      <h1 id="recipe-title"></h1>
+      <h2>Ingredients:</h2>
+      <ul id="recipe-ingredients"></ul>
+      <h2>Steps:</h2>
+      <ol id="recipe-steps"></ol>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Delicious Recipes. All Rights Reserved.</p>
+    <ul>
+      <li><a href="#">Terms & Conditions</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Social Media</a></li>
+    </ul>
+  </footer>
+</body>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+</html>
