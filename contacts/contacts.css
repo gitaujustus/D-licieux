@@ -134,3 +134,10 @@ footer {
     color: black;
   }
   
+  @media only screen and (max-width: 768px) {
+    .form-container {
+      width: 17rem;
+  }
+  
+  }
+  
