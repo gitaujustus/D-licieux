@@ -3,36 +3,39 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
+console.log();
+
 //fetch recipes to db
 document.addEventListener("DOMContentLoaded", async function() {
-    const recipesContainer = document.querySelector(".recipe-list");
-    const loadingScreen = document.getElementById("loading-screen");
-
-    loadingScreen.style.display = "block";
-    try {
-      const { data: recipes , error}= await _supabase.from('recipes').select('*');
+  const recipesContainer = document.querySelector(".recipe-list");
+  const loadingScreen = document.getElementById("loading-screen");
+  // loadingScreen.style.display = "block";
+  try {
+      const { data: recipes, error } = await _supabase.from('recipes').select('*');
       if (error) {
-        throw error
+          throw new Error("No recipes to showwww. Please try again later.");
       }
-      loadingScreen.style.display = "none";
-    recipes.forEach(recipe => {
-        const recipeItem = document.createElement("li");
-        recipeItem.innerHTML = `
-            <div class="" key="${recipe.recipe_id}">
-                <h2>${recipe.title}</h2>
-                <p><b>Ingredients</b>: ${recipe.ingredients}</p>
-            </div>
-        `;
-        recipeItem.addEventListener("click", () => {
-            // Redirect to full recipe page
-            window.location.href = `/each/recipe.html?id=${encodeURIComponent(recipe.recipe_id)}`;
-        });
-        recipesContainer.appendChild(recipeItem);
-    });
-
+      // loadingScreen.style.display = "none";
+      recipes.forEach(recipe => {
+          const recipeItem = document.createElement("li");
+          recipeItem.innerHTML = `
+              <div class="" key="${recipe.recipe_id}">
+                  <h2>${recipe.title}</h2>
+                  <p><b>Ingredients</b>: ${recipe.ingredients}</p>
+              </div>
+          `;
+          recipeItem.addEventListener("click", () => {
+              // Redirect to full recipe page
+              window.location.href = `/each/recipe.html?id=${encodeURIComponent(recipe.recipe_id)}`;
+          });
+          recipesContainer.appendChild(recipeItem);
+      });
   } catch (error) {
-    console.log(error);
-      
+      // loadingScreen.style.display = "none";
+      console.log("sasa");
+      const errorMessage = document.createElement("p");
+      errorMessage.textContent = "Failed to load recipes. Please try again later.";
+      recipesContainer.appendChild(errorMessage);
   }
 });
 
