@@ -1,7 +1,10 @@
 # Délicieux
 
 ## Overview
-Delicious Recipes is a progressive web application that allows users to explore, create, and share a variety of mouth-watering recipes. Whether you're a seasoned chef or a cooking enthusiast, this platform offers a diverse collection of culinary delights to inspire your next culinary adventure.
+[Délicieux](https://dericieux.vercel.app) Recipes is a progressive web application that allows users to explore, create, and share a variety of mouth-watering recipes. Whether you're a seasoned chef or a cooking enthusiast, this platform offers a diverse collection of culinary delights to inspire your next culinary adventure.
+
+## Live Demo
+Check out the live demo [here](https://dericieux.vercel.app).
 
 ## Features
 - Browse a wide range of recipes from various cuisines.

@@ -1,59 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - Delicious Recipes</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="contacts.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Délicieux | Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contacts.css">
+</head>
 <body>
-  <header>
-    <nav>
-      <div style="display: flex; gap: 10px;">
-        <img src="/images/Recipe.jpeg" alt="Recipe">
-        <!-- <h3>Delicacies</h3> -->
-      </div>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="../about/about.html">About</a></li>
-        <li><a href="../contacts/contacts.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <div id="contacts-head">
-        <h1>Contact Us</h1>
-        <p>Have a question or feedback? Feel free to reach out to us!</p>
+    <header>
+        <nav>
+          <div style="display: flex; gap: 10px;">
+            <img src="/images/Recipe.jpeg" alt="Recipe">
+            <!-- <h3>Delicacies</h3> -->
+          </div>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/about.html">About</a></li>
+            <li><a href="../contacts/contacts.html">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+    <div class="container">
+        <h2 class="heading">Contact Us</h2>
+        <div class="form-container">
+            <div class="info">
+                <span class="icon"><img src="mail_icon.png" alt=""></span>
+                <span class="label">Email:</span>
+                <a href="mailto:jgathiru02@gmail.com" class="email-link">info@campuscloset.com</a>
+            </div>
+            <div class="info">
+                <span class="icon"><img src="phone_icon.png" alt=""></span>
+                <span class="label">Phone:</span>
+                <span class="phone-number">+254-729-144-533</span>
+            </div>
+            <div class="info">
+                <span class="icon"><img src="location_icon.png" alt=""></span>
+                <span class="label">Address:</span>
+                <span class="address">2500, Eldoret, Kenya</span>
+            </div>
+            <form id="contact-form">
+                <div class="input-group">
+                    <label for="name" class="label">Name:</label>
+                    <input type="text" id="name" name="name" class="input-field" placeholder="input your cool name" required>
+                </div>
+                <div class="input-group">
+                    <label for="email" class="label">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter valid email address" class="input-field" required>
+                </div>
+                <div class="input-group">
+                    <label for="message" class="label">Message:</label>
+                    <textarea id="message" name="message" class="input-field" placeholder="input your message here" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submit-btn">Submit</button>
+            </form>
+        </div>
     </div>
-    <div id="details">
-        <h2>Contact Details:</h2>
-        <ul >
-        <li><b>Email</b>: jgathiru02@gmail.com</li>
-        <li><b>Phone</b>: +2547 29 144 533</li>
-        <li><b>Address</b>: 5129, Eldoret, Kenya</li>
+    <footer>
+        <p>&copy; 2024 Delicious Recipes. All Rights Reserved.</p>
+        <ul>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Social Media</a></li>
         </ul>
-    </div>
+      </footer>
+    
 
-    <div id="social-tags">
-    <h2>Follow Us:</h2>
-        <ul class="social-links">
-        <li><a href="#" target="_blank"><img src="images/facebook-icon.png" alt="Facebook"></a></li>
-        <li><a href="#" target="_blank"><img src="images/twitter-icon.png" alt="Twitter"></a></li>
-        <li><a href="#" target="_blank"><img src="images/instagram-icon.png" alt="Instagram"></a></li>
-        </ul>
-    </div>
-  </main>
+    <!-- send to database -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const contactForm = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
 
-  <footer>
-    <p>&copy; 2024 Delicious Recipes. All Rights Reserved.</p>
-    <ul>
-      <li><a href="#">Terms & Conditions</a></li>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Social Media</a></li>
-    </ul>
-  </footer>
+            contactForm.addEventListener('submit', async function(event) {
+                event.preventDefault();
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Loading...';
+                submitBtn.style.cursor = 'not-allowed';
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
 
-  <script src="script.js"></script>
+                try {
+                    const res = await fetch("https://nodemailer-server-rouge.vercel.app/mails", {
+                        method: "POST",
+                        headers: { "content-type": "application/json" },
+                        body: JSON.stringify({ name, email, message }),
+                    });
+                    
+                    if (res.ok) {
+                        // Reset form fields on success
+                        contactForm.reset();
+                        alert("Message Sent Successfully!");
+                    } else {
+                        throw new Error("Failed to send message");
+                    }
+                } catch (error) {
+                    console.error("Error:", error.message);
+                    alert("An error occurred. Please try again later.");
+                } finally{
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit';
+                    submitBtn.style.cursor = 'pointer';
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

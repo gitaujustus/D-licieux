@@ -65,39 +65,38 @@ self.addEventListener('activate', event =>{
 // })
 
 self.addEventListener('fetch', event => {
-    
-    if (event.request.url.includes('supabase.co')) {
-        console.log("here", event.request.url);
-        event.respondWith(
-            fetch(event.request).catch((error) => {
-                console.log("No network", error);
-                caches.match('/fallback.html')
-            })
-        );
-        return;
-    }  
-        // For other requests, use caching strategy
-        event.respondWith(
-            caches.match(event.request)
-            .then(cacheRes => {
-                // If cache exists, respond with cached content
-                if (cacheRes) {
-                    return cacheRes;
-                }
-                // If not in cache, fetch from network and cache dynamically
-                return fetch(event.request).then(fetchRes => {
-                    return caches.open(dynamicAssets).then(cache => {
-                        cache.put(event.request.url, fetchRes.clone());
-                        return fetchRes;
-                    });
-                });
-            }).catch(() => {
-                // If request fails and it's an HTML request, respond with fallback
-                if (event.request.url.includes('.html')) {
-                    return caches.match('/fallback.html');
-                }
-            })
-        );
+    // if (event.request.url.includes('supabase.co')) {
+    //     console.log("here", event.request.url);
+    //     event.respondWith(
+    //         fetch(event.request).catch((error) => {
+    //             console.log("No network", error);
+    //             caches.match('/fallback.html')
+    //         })
+    //     );
+    //     return;
+    // }  
+    //     // For other requests, use caching strategy
+    //     event.respondWith(
+    //         caches.match(event.request)
+    //         .then(cacheRes => {
+    //             // If cache exists, respond with cached content
+    //             if (cacheRes) {
+    //                 return cacheRes;
+    //             }
+    //             // If not in cache, fetch from network and cache dynamically
+    //             return fetch(event.request).then(fetchRes => {
+    //                 return caches.open(dynamicAssets).then(cache => {
+    //                     cache.put(event.request.url, fetchRes.clone());
+    //                     return fetchRes;
+    //                 });
+    //             });
+    //         }).catch(() => {
+    //             // If request fails and it's an HTML request, respond with fallback
+    //             if (event.request.url.includes('.html')) {
+    //                 return caches.match('/fallback.html');
+    //             }
+    //         })
+    //     );
 });
 
     

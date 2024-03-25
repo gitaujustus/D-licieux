@@ -1,8 +1,8 @@
 {
   "name": "Délicieux",
   "short_name": "Délicieux",
-  "theme_color": "#FF6347",
-  "background_color": "#F0F0F0",
+  "theme_color": "#FF755D",
+  "background_color": "#FF755D",
   "display": "standalone",
   "orientation": "portrait",
   "scope": "/",

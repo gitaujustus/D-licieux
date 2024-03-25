@@ -39,42 +39,51 @@ body {
   main {
     padding: 20px;
   }
+  #contacts-head{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  #details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #social-tags{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   
   h1 {
+    text-align: center;
     margin-bottom: 20px;
   }
-  form{
-    width: 80vw;
+  
+  h2 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: large;
   }
   
-  label {
-    display: block;
-    margin-bottom: 5px;
+  ul {
+    list-style: none;
+    padding: 0;
   }
   
-  input[type="text"],
-  textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+  li {
+    margin-bottom: 10px;
   }
   
-  button {
-    padding: 10px 20px;
-    background-color: #FF6347;
-    color: white;
-    border: none;
-    cursor: pointer;
-    width: 82vw;
-    border-radius: 5px;
+  
+  .social-links li {
+    list-style: none;
   }
   
-  button:hover {
-    background-color: #ff2600;
-  }
-  
+  /* Footer styling */
  footer {
-    background-color: #FF6347;
+    background-color: #ff755d;
     padding: 20px;
     text-align: center;
   }
