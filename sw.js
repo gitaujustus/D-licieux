@@ -61,21 +61,21 @@ self.addEventListener('activate', event =>{
 //             })
 //         })
 //     )
-     
+
 // })
 
-
 self.addEventListener('fetch', event => {
-    // Check if the request URL contains 'supabase.co'
+    
     if (event.request.url.includes('supabase.co')) {
         console.log("here", event.request.url);
-        // If it does, respond with a fallback response if offline
         event.respondWith(
-            fetch(event.request).catch(() => caches.match('/fallback.html'))
+            fetch(event.request).catch((error) => {
+                console.log("No network", error);
+                caches.match('/fallback.html')
+            })
         );
-    } else {
-        console.log("here tii");
-
+        return;
+    }  
         // For other requests, use caching strategy
         event.respondWith(
             caches.match(event.request)
@@ -98,7 +98,6 @@ self.addEventListener('fetch', event => {
                 }
             })
         );
-    }
 });
 
     

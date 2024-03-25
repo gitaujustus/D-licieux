@@ -3,7 +3,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
-console.log();
+
 
 //fetch recipes to db
 document.addEventListener("DOMContentLoaded", async function() {
@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", async function() {
   try {
       const { data: recipes, error } = await _supabase.from('recipes').select('*');
       if (error) {
-          throw new Error("No recipes to showwww. Please try again later.");
+        console.log(error);
+          throw new Error("No recipes to show. Please try again later.");
       }
       // loadingScreen.style.display = "none";
       recipes.forEach(recipe => {
@@ -31,13 +32,19 @@ document.addEventListener("DOMContentLoaded", async function() {
           recipesContainer.appendChild(recipeItem);
       });
   } catch (error) {
+    const offline=document.createElement('div')
+        offline.innerHTML=`
+        <div id="loading-screen" style="text-align: center; height: 40vh; padding-top: 70px; color: #d43b20;" >
+            <h4>Opps!</h4>
+            <h2>It seems that you are Offline!</h2>
+            <h3>Check your internet connection and try again</h3>
+        </div>
+        `
       // loadingScreen.style.display = "none";
-      console.log("sasa");
-      const errorMessage = document.createElement("p");
-      errorMessage.textContent = "Failed to load recipes. Please try again later.";
-      recipesContainer.appendChild(errorMessage);
+      recipesContainer?.appendChild(offline);
   }
 });
+
 
 
 //fetch single recipe
@@ -53,33 +60,54 @@ document.addEventListener("DOMContentLoaded", async function() {
    
         // Show loading screen
         loadingScreen.style.display = "block";
+
+        try {
+            
       const { data: recipeData, error } = await _supabase
-        .from('recipes')
-        .select('*')
-        .eq('recipe_id', recipeId);
+      .from('recipes')
+      .select('*')
+      .eq('recipe_id', recipeId);
+      if (error) {
+        console.log(error);
+          throw new Error("No recipes to show. Please try again later.");
+      }
+      
 
-        const recipe = recipeData[0];
-        recipeTitle.textContent = recipe.title;
+      const recipe = recipeData[0];
+      recipeTitle.textContent = recipe.title;
 
 
-        const ingredients = recipe.ingredients.split(',').map(ingredient => ingredient.trim()); // Splitting the ingredients paragraph by commas
-        ingredients.forEach(ingredient => {
-          const li = document.createElement("li");
-          li.textContent = ingredient;
-          recipeIngredients.appendChild(li);
-        });
-        
+      const ingredients = recipe.ingredients.split(',').map(ingredient => ingredient.trim()); // Splitting the ingredients paragraph by commas
+      ingredients.forEach(ingredient => {
+        const li = document.createElement("li");
+        li.textContent = ingredient;
+        recipeIngredients.appendChild(li);
+      });
+      
 
-        const steps = recipe.steps.split('.').filter(step => step.trim() !== ''); // Splitting the steps paragraph by full stops
-        steps.forEach(step => {
-          const li = document.createElement("li");
-          li.textContent = step.trim(); // Trimming extra spaces
-          recipeSteps.appendChild(li);
+      const steps = recipe.steps.split('.').filter(step => step.trim() !== ''); // Splitting the steps paragraph by full stops
+      steps.forEach(step => {
+        const li = document.createElement("li");
+        li.textContent = step.trim(); // Trimming extra spaces
+        recipeSteps.appendChild(li);
 
-          // Hide loading screen
-          loadingScreen.style.display = "none";
-          recipeContainer.style.display = "block";
-        });
+        // Hide loading screen
+        loadingScreen.style.display = "none";
+        recipeContainer.style.display = "block";
+      });
+        } catch (error) {
+            loadingScreen.style.display = "none";
+            recipeContainer.style.display = "block";
+            const offline=document.createElement('div')
+            offline.innerHTML=`
+            <div id="loading-screen" style="text-align: center; height: 40vh; padding-top: 70px; color: #d43b20;" >
+                <h4>Opps!</h4>
+                <h2>It seems that you are Offline!</h2>
+                <h3>Check your internet connection and try again</h3>
+            </div>
+            `
+          recipeContainer.appendChild(offline);
+        }
     });
 
 

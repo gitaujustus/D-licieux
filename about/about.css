@@ -4,9 +4,9 @@ body {
     padding: 0;
   }
   
-  header {
-    background-color: #f0f0f0;
-    padding: 20px;
+ header {
+    background-color: #FF6347;
+    padding: 10px;
   }
   
   nav {
@@ -54,8 +54,8 @@ body {
     align-items: center;
   }
    */
-  footer {
-    background-color: #f0f0f0;
+ footer {
+    background-color: #FF6347;
     padding: 20px;
     text-align: center;
   }
