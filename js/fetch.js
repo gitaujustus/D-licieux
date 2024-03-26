@@ -58,8 +58,6 @@ document.addEventListener("DOMContentLoaded", async function() {
             getAllRequest.onsuccess = async function(e) {
               const existingRecipes = e.target.result;
               const existingIds = new Set(existingRecipes.map(recipe => recipe.recipe_id));
-              console.log("existingIds=====", existingIds);
-      
               // Use a transaction to perform the update
               const updateTransaction = db.transaction(['recipes'], 'readwrite');
               const updateObjectStore = updateTransaction.objectStore('recipes');

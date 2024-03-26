@@ -1,5 +1,5 @@
-const staticAssets= 'static-site-v1'
-const dynamicAssets= 'dynamic-site-v1'
+const staticAssets= 'static-site-v3'
+const dynamicAssets= 'dynamic-site-v3'
 
 const assets=[
     '/',
@@ -17,6 +17,10 @@ const assets=[
     '/each/recipe.css',
     '/images/icons/icon-512x512.png',
     '/images/icons/icon-144x144.png',
+    '/images/icons/icon-192x192.png',
+    '/images/icons/icon-384x384.png',
+    '/images/icons/icon-72x72.png',
+    '/images/icons/icon-96x96.png',
     '/images/Recipe.jpeg',
     '/manifest.json'
 ]
@@ -47,6 +51,15 @@ self.addEventListener('activate', event =>{
 
 self.addEventListener('fetch', event => {
     if (event.request.url.includes('supabase.co')) {
+        // console.log("here", event.request.url)
+        event.respondWith(
+            fetch(event.request).catch((error) => {
+                caches.match('/fallback.html')
+            })
+        );
+        return;
+    }  
+    if (event.request.url.includes('unpkg.com/@supabase/supabase')) {
         // console.log("here", event.request.url)
         event.respondWith(
             fetch(event.request).catch((error) => {
