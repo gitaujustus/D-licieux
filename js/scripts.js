@@ -5,48 +5,6 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 
 
 
-//fetch recipes to db
-document.addEventListener("DOMContentLoaded", async function() {
-  const recipesContainer = document.querySelector(".recipe-list");
-  const loadingScreen = document.getElementById("loading-screen");
-  // loadingScreen.style.display = "block";
-  try {
-      const { data: recipes, error } = await _supabase.from('recipes').select('*');
-      if (error) {
-        console.log(error);
-          throw new Error("No recipes to show. Please try again later.");
-      }
-      // loadingScreen.style.display = "none";
-      recipes.forEach(recipe => {
-          const recipeItem = document.createElement("li");
-          recipeItem.innerHTML = `
-              <div class="" key="${recipe.recipe_id}">
-                  <h2>${recipe.title}</h2>
-                  <p><b>Ingredients</b>: ${recipe.ingredients}</p>
-              </div>
-          `;
-          recipeItem.addEventListener("click", () => {
-              // Redirect to full recipe page
-              window.location.href = `/each/recipe.html?id=${encodeURIComponent(recipe.recipe_id)}`;
-          });
-          recipesContainer.appendChild(recipeItem);
-      });
-  } catch (error) {
-    const offline=document.createElement('div')
-        offline.innerHTML=`
-        <div id="loading-screen" style="text-align: center; height: 40vh; padding-top: 70px; color: #d43b20;" >
-            <h4>Opps!</h4>
-            <h2>It seems that you are Offline!</h2>
-            <h3>Check your internet connection and try again</h3>
-        </div>
-        `
-      // loadingScreen.style.display = "none";
-      recipesContainer?.appendChild(offline);
-  }
-});
-
-
-
 //fetch single recipe
     document.addEventListener("DOMContentLoaded", async function() {
       const recipeTitle = document.getElementById("recipe-title");

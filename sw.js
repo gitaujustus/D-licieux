@@ -1,5 +1,5 @@
 const staticAssets= 'static-site-v2'
-const dynamicAssets= 'dynamic-site-v3'
+const dynamicAssets= 'dynamic-site-v1'
 
 const assets=[
     '/',
@@ -15,7 +15,6 @@ const assets=[
     '/fallback/fallback.css',
     '/each/recipe.html',
     '/each/recipe.css',
-    // '/js/scripts.js',
     '/images/icons/icon-512x512.png',
     '/images/icons/icon-144x144.png',
     '/images/Recipe.jpeg',
@@ -26,7 +25,7 @@ self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(staticAssets).then(cache => {
             return cache.addAll(assets).catch(error => {
-                // If any file fails to cache, you'll get an error here
+                // If any file fails to cache, you'll et an error here
                 console.error('Failed to cachee', error);
             });
         })
@@ -45,32 +44,22 @@ self.addEventListener('activate', event =>{
     )
 })
 
-// self.addEventListener('fetch', event =>{
-//     event.respondWith(
-//         caches.match(event.request).then(cacheRes =>{
-//             return cacheRes || fetch(event.request).then(fetchRes =>{
-//                 return caches.open(dynamicAssets).then(cache =>{
-//                     cache.put(event.request.url, fetchRes.clone())
-//                     return fetchRes;
-//                 }).catch(()=> {
-//                     console.log("sss");
-//                     if (event.request.url.indexOf('.html')> -1) {
-//                         return caches.match('/fallback.html')
-//                     }
-//                 })
-//             })
-//         })
-//     )
-
-// })
 
 self.addEventListener('fetch', event => {
     if (event.request.url.includes('supabase.co')) {
-        console.log("here", event.request.url);
+        // console.log("here", event.request.url)
         event.respondWith(
             fetch(event.request).catch((error) => {
-                console.log("No network", error);
                 caches.match('/fallback.html')
+            })
+        );
+        return;
+    }  
+    if (event.request.url.includes('nodemailer-server-rouge')) {
+        event.respondWith(
+            fetch(event.request).catch((error) => {
+                // console.log("No network", error);
+                // caches.match('/fallback.html')
             })
         );
         return;
@@ -83,12 +72,13 @@ self.addEventListener('fetch', event => {
                 if (cacheRes) {
                     return cacheRes;
                 }
-                // If not in cache, fetch from network and cache dynamically
+                // If not in cache, fetch from network and cache dynamicallyy
                 return fetch(event.request).then(fetchRes => {
                     return caches.open(dynamicAssets).then(cache => {
-                        cache.put(event.request.url, fetchRes.clone());
+                        // cache.put(event.request.url, fetchRes.clone());
                         return fetchRes;
                     });
+                    // return fetchRes;
                 });
             }).catch(() => {
                 // If request fails and it's an HTML request, respond with fallback
@@ -98,6 +88,7 @@ self.addEventListener('fetch', event => {
             })
         );
 });
+
 
     
 
