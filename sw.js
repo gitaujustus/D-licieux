@@ -1,5 +1,5 @@
-const staticAssets= 'static-site-v1'
-const dynamicAssets= 'dynamic-site-v1'
+const staticAssets= 'static-site-v2'
+const dynamicAssets= 'dynamic-site-v2'
 
 const assets=[
     '/',
@@ -22,7 +22,8 @@ const assets=[
     '/images/icons/icon-72x72.png',
     '/images/icons/icon-96x96.png',
     '/images/Recipe.jpeg',
-    '/manifest.json'
+    '/manifest.json',
+    '/js/fetch.js'
 ]
 // Install service worke
 self.addEventListener('install', event => {
