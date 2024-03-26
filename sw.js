@@ -1,5 +1,5 @@
-const staticAssets= 'static-site-v3'
-const dynamicAssets= 'dynamic-site-v3'
+const staticAssets= 'static-site-v1'
+const dynamicAssets= 'dynamic-site-v1'
 
 const assets=[
     '/',
@@ -88,10 +88,9 @@ self.addEventListener('fetch', event => {
                 // If not in cache, fetch from network and cache dynamicallyy
                 return fetch(event.request).then(fetchRes => {
                     return caches.open(dynamicAssets).then(cache => {
-                        // cache.put(event.request.url, fetchRes.clone());
+                        cache.put(event.request.url, fetchRes.clone());
                         return fetchRes;
                     });
-                    // return fetchRes;
                 });
             }).catch(() => {
                 // If request fails and it's an HTML request, respond with fallback
